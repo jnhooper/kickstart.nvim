@@ -426,6 +426,7 @@ require('lazy').setup({
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension 'noice')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -776,6 +777,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-cmdline',
     },
     config = function()
       -- See `:help cmp`
@@ -854,6 +856,16 @@ require('lazy').setup({
           { name = 'path' },
         },
       }
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' },
+        }, {
+          { name = 'cmdline', option = {
+            ignore_cmds = { 'Man', '!' },
+          } },
+        }),
+      })
     end,
   },
 
