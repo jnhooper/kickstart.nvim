@@ -112,6 +112,11 @@ return {
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
+
+    keys = {
+      { '<leader>dn', ':Noice dismiss<cr>', desc = '[N]oice [D]ismiss', silent = true },
+    },
+
     opts = {
       -- add any options here
       lsp = {
@@ -142,4 +147,24 @@ return {
   'nvim-treesitter/nvim-treesitter-textobjects',
 
   'tpope/vim-fugitive',
+  {
+    'nvim-tree/nvim-tree.lua',
+    version = '*',
+    lazy = false,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+    },
+    config = function()
+      require('nvim-tree').setup {
+        update_focused_file = {
+          enable = true,
+          update_root = true,
+        },
+      }
+    end,
+    keys = {
+      { '<leader>e', '::NvimTreeFocus <CR>', desc = 'nvimTree focus', silent = true },
+      { '<C-n>', ':NvimTreeToggle <CR>', desc = 'nvimTree collapse', silent = true },
+    },
+  },
 }

@@ -160,19 +160,6 @@ vim.opt.scrolloff = 10
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
--- return to normal mode
-vim.keymap.set('i', 'jj', '<Esc>')
-
--- remap semicolon to colon for faster commands
-vim.keymap.set('n', ';', ':')
-
--- move to the next buffer
-vim.keymap.set('n', '<Tab>', '<cmd>bnext<CR>')
-vim.keymap.set('n', '<S-Tab>', '<cmd>bprev<CR>')
-
--- close buffer
-vim.keymap.set('n', '<leader>x', '<cmd>enew<bar>bd #<CR>', { desc = '[x] out of buffer' })
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -202,6 +189,8 @@ vim.keymap.set('n', '<C-H>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-L>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-J>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-K>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+require 'custom.keymaps.keymaps'
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -980,7 +969,6 @@ require('lazy').setup({
   require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
   -- open explorer
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
