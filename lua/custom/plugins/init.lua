@@ -2,6 +2,7 @@
 --  I promise not to create any merge conflicts in this directory :)
 --
 -- See the kickstart.nvim README for more information
+
 return {
   {
     'ThePrimeagen/harpoon',
@@ -110,38 +111,52 @@ return {
     end,
   },
   {
-    'folke/noice.nvim',
-    event = 'VeryLazy',
-
-    keys = {
-      { '<leader>dn', ':Noice dismiss<cr>', desc = '[N]oice [D]ismiss', silent = true },
-    },
-
-    opts = {
-      -- add any options here
-      lsp = {
-        hover = {
-          enabled = false, -- this will disable hover warning
-        },
-        signature = {
-          enabled = false, -- this will disable signtature warning.
-        },
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-        override = {
-          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-          ['vim.lsp.util.stylize_markdown'] = true,
-          ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
-        },
-      },
-    },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      'MunifTanjim/nui.nvim',
-      -- OPTIONAL:
-      --   `nvim-notify` is only needed, if you want to use the notification view.
-      --   If not available, we use `mini` as the fallback
-      'rcarriga/nvim-notify',
-    },
+    -- 'folke/noice.nvim',
+    -- event = 'VeryLazy',
+    --
+    -- keys = {
+    --   { '<leader>dn', ':Noice dismiss<cr>', desc = '[N]oice [D]ismiss', silent = true },
+    -- },
+    -- config = function()
+    --   require('noice').setup {
+    --     routes = {
+    --       {
+    --         filter = {
+    --           event = 'msg_show',
+    --           kind = '',
+    --           find = 'written',
+    --         },
+    --         opts = { skip = true },
+    --       },
+    --     },
+    --   }
+    -- end,
+    --
+    -- opts = {
+    --   -- add any options here
+    --   lsp = {
+    --     hover = {
+    --       enabled = false, -- this will disable hover warning
+    --     },
+    --     signature = {
+    --       enabled = false, -- this will disable signtature warning.
+    --     },
+    --     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    --     override = {
+    --       ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+    --       ['vim.lsp.util.stylize_markdown'] = true,
+    --       ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+    --     },
+    --   },
+    -- },
+    -- dependencies = {
+    --   -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --   'MunifTanjim/nui.nvim',
+    --   -- OPTIONAL:
+    --   --   `nvim-notify` is only needed, if you want to use the notification view.
+    --   --   If not available, we use `mini` as the fallback
+    --   'rcarriga/nvim-notify',
+    -- },
   },
   -- needed for mini.ai to get function and tags etc
   'nvim-treesitter/nvim-treesitter-textobjects',
