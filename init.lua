@@ -100,6 +100,9 @@ vim.g.have_nerd_font = true
 
 -- Make line numbers default
 vim.opt.number = true
+
+vim.tabstop = 2
+vim.shiftwidth = 2
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
 vim.opt.relativenumber = true
@@ -147,6 +150,7 @@ vim.opt.splitbelow = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.noexpandtab = true
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -688,6 +692,15 @@ require('lazy').setup({
           end,
         },
       }
+      local nvim_lsp = require 'lspconfig'
+      nvim_lsp.denols.setup {
+        root_dir = nvim_lsp.util.root_pattern('deno.json', 'deno.jsonc'),
+      }
+
+      nvim_lsp.ts_ls.setup {
+        root_dir = nvim_lsp.util.root_pattern 'package.json',
+        single_file_support = false,
+      }
     end,
   },
 
@@ -729,13 +742,13 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
         -- javascript = { 'eslint_d', 'deno', stop_after_first = true, async = true },
-        javascriptreact = { 'eslint_d', 'deno', stop_after_first = true, async = true },
-        typescript = { 'eslint_d', 'deno', stop_after_first = true, async = true },
+        javascriptreact = { 'eslint_d', stop_after_first = true, async = true },
+        typescript = { 'eslint_d', stop_after_first = true, async = true },
         -- typescriptreact = { 'eslint_d', 'deno', stop_after_first = true, async = true },
-        typescriptreact = { 'deno', 'prettierd', 'prettier', stop_after_first = true },
-        css = { 'eslint_d', 'deno', stop_after_first = true, async = true },
+        typescriptreact = { 'deno', stop_after_first = true },
+        css = { 'eslint_d', stop_after_first = true, async = true },
         -- html = { 'eslint_d', 'deno', stop_after_first = true, async = true },
       },
     },
