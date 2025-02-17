@@ -5,6 +5,40 @@
 
 return {
   {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      scroll = {},
+      animate = {
+        -- your animate configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      },
+      notifier = {},
+      gitbrowse = {},
+      lazygit = {},
+    },
+    keys = {
+      {
+        '<leader>gB',
+        function()
+          Snacks.gitbrowse()
+        end,
+        desc = 'Git Browse',
+        mode = { 'n', 'v' },
+      },
+      {
+        '<leader>gg',
+        function()
+          Snacks.lazygit()
+        end,
+        desc = 'Lazygit',
+      },
+    },
+  },
+  {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
@@ -163,6 +197,23 @@ return {
 
   'tpope/vim-fugitive',
   {
+    'nvim-web-devicons',
+    override_by_extension = {
+      ['tsx'] = {
+        icon = '󰜈',
+        name = 'react',
+      },
+      ['jsx'] = {
+        icon = '󰜈 ',
+        name = 'react',
+      },
+      ['ts'] = {
+        icon = '',
+        name = 'react',
+      },
+    },
+  },
+  {
     'nvim-tree/nvim-tree.lua',
     version = '*',
     lazy = false,
@@ -181,5 +232,13 @@ return {
       { '<leader>e', '::NvimTreeFocus <CR>', desc = 'nvimTree focus', silent = true },
       { '<C-n>', ':NvimTreeToggle <CR>', desc = 'nvimTree collapse', silent = true },
     },
+  },
+
+  -- assumes ollama is setup
+  {
+    'robitx/gp.nvim',
+    config = function()
+      require 'custom.plugins.configs.gp'
+    end,
   },
 }
