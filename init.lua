@@ -681,6 +681,8 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
+        automatic_installation = true,
+        ensure_installed = {},
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
@@ -697,9 +699,29 @@ require('lazy').setup({
         root_dir = nvim_lsp.util.root_pattern('deno.json', 'deno.jsonc'),
       }
 
+      local mason_registry = require 'mason-registry'
+      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
       nvim_lsp.ts_ls.setup {
         root_dir = nvim_lsp.util.root_pattern 'package.json',
         single_file_support = false,
+        init_options = {
+          plugins = {
+            {
+              name = '@vue/typescript-plugin',
+              location = vue_language_server_path,
+              languages = { 'vue' },
+            },
+          },
+        },
+        filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact' },
+      }
+
+      nvim_lsp.volar.setup {
+        init_options = {
+          vue = {
+            hybridMode = false,
+          },
+        },
       }
     end,
   },
