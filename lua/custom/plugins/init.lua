@@ -39,11 +39,18 @@ return {
     },
   },
   {
+    'ggandor/leap.nvim',
+    config = function()
+      require('leap').set_default_keymaps()
+    end,
+  },
+  {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      local harpoon = require('harpoon'):setup()
+      local harpoon = require 'harpoon'
+      harpoon:setup {}
       local conf = require('telescope.config').values
       local function toggle_telescope(harpoon_files)
         local file_paths = {}

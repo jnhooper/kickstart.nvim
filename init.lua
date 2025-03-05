@@ -765,11 +765,12 @@ require('lazy').setup({
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'eslint_d', 'prettierd', 'prettier', stop_after_first = true },
+        vue = { 'eslint_d', stop_after_first = true },
         -- javascript = { 'eslint_d', 'deno', stop_after_first = true, async = true },
         javascriptreact = { 'eslint_d', stop_after_first = true, async = true },
         typescript = { 'eslint_d', stop_after_first = true, async = true },
         -- typescriptreact = { 'eslint_d', 'deno', stop_after_first = true, async = true },
-        typescriptreact = { 'deno', stop_after_first = true },
+        typescriptreact = { 'eslint_d', stop_after_first = true },
         css = { 'eslint_d', stop_after_first = true, async = true },
         -- html = { 'eslint_d', 'deno', stop_after_first = true, async = true },
       },
@@ -885,7 +886,28 @@ require('lazy').setup({
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
-          { name = 'nvim_lsp' },
+          {
+            name = 'nvim_lsp',
+            ---@param entry cmp.Entry
+            ---@param ctx cmp.Context
+            entry_filter = function(entry, ctx)
+              -- Check if the buffer type is 'vue'
+              if ctx.filetype ~= 'vue' then
+                return true
+              end
+
+              local cursor_before_line = ctx.cursor_before_line
+              -- For events
+              if cursor_before_line:sub(-1) == '@' then
+                return entry.completion_item.label:match '^@'
+              -- For props also exclude events with `:on-` prefix
+              elseif cursor_before_line:sub(-1) == ':' then
+                return entry.completion_item.label:match '^:' and not entry.completion_item.label:match '^:on%-'
+              else
+                return true
+              end
+            end,
+          },
           { name = 'luasnip' },
           { name = 'path' },
         },
