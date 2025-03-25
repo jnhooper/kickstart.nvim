@@ -13,3 +13,5 @@ vim.keymap.set('n', '<leader>x', '<cmd>enew<bar>bd #<CR>', { desc = '[x] out of 
 vim.keymap.set('n', '<leader>cb', '<cmd>%bd|e#|bd# <CR>', { desc = '[c]lose all [b]uffers' })
 
 vim.keymap.set('n', 'F', vim.diagnostic.open_float, { desc = 'open [F]loat diagnostics' })
+
+vim.keymap.set('n', '-', '<CMD>Oil --float <CR>', { desc = 'Open parent directory in oil' })

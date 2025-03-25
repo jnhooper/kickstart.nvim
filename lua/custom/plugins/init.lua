@@ -4,6 +4,7 @@
 -- See the kickstart.nvim README for more information
 
 return {
+  'tpope/vim-rails',
   {
     'folke/snacks.nvim',
     priority = 1000,
@@ -16,11 +17,20 @@ return {
         -- or leave it empty to use the default settings
         -- refer to the configuration section below
       },
-      notifier = {},
+      notifier = {
+        history = true,
+      },
       gitbrowse = {},
       lazygit = {},
     },
     keys = {
+      {
+        '<leader>n',
+        function()
+          Snacks.notifier.show_history()
+        end,
+        desc = 'Notification History',
+      },
       {
         '<leader>gB',
         function()
@@ -57,6 +67,25 @@ return {
         for _, item in ipairs(harpoon_files.items) do
           table.insert(file_paths, item.value)
         end
+        local finder = function()
+          local paths = {}
+          for _, item in ipairs(harpoon_files.items) do
+            table.insert(paths, item.value)
+          end
+
+          return require('telescope.finders').new_table {
+            results = paths,
+          }
+        end
+
+        local function remove_mark(prompt_bufnr)
+          local state = require 'telescope.actions.state'
+          local selected_entry = state.get_selected_entry()
+          local current_picker = state.get_current_picker(prompt_bufnr)
+
+          table.remove(harpoon_files.items, selected_entry.index)
+          current_picker:refresh(finder())
+        end
 
         require('telescope.pickers')
           .new({}, {
@@ -66,6 +95,18 @@ return {
             },
             previewer = conf.file_previewer {},
             sorter = conf.generic_sorter {},
+            attach_mappings = function(prompt_bufnr, map)
+              map('i', '<C-d>', function()
+                remove_mark(prompt_bufnr)
+              end)
+              map('n', '<C-d>', function()
+                remove_mark(prompt_bufnr)
+              end)
+              map('n', 'd', function()
+                remove_mark(prompt_bufnr)
+              end)
+              return true
+            end,
           })
           :find()
       end
@@ -139,9 +180,7 @@ return {
       require('base46').load_all_highlights()
     end,
   },
-
   'nvchad/volt',
-
   {
     'goolord/alpha-nvim',
     lazy = false,
@@ -248,4 +287,6 @@ return {
       require 'custom.plugins.configs.gp'
     end,
   },
+  require 'custom.plugins.configs.text-case',
+  require 'custom.plugins.configs.oil',
 }
