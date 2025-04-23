@@ -15,6 +15,7 @@ vim.keymap.set('n', '<leader>cb', '<cmd>%bd|e#|bd# <CR>', { desc = '[c]lose all 
 vim.keymap.set('n', 'F', vim.diagnostic.open_float, { desc = 'open [F]loat diagnostics' })
 
 vim.keymap.set('n', '-', '<CMD>Oil --float <CR>', { desc = 'Open parent directory in oil' })
+vim.keymap.set('n', '<leader>ci', 'i- [ ]', { desc = '[c]heckbox [i]nsert' })
 
 -- Common function to set up mappings for each case
 local function setup_textcase_keymaps(key, case, desc, op_desc)

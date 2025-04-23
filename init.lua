@@ -764,7 +764,14 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'eslint_d', 'deno_fmt', 'prettierd', 'prettier', stop_after_first = true },
+        javascript = {
+          'eslint_d',
+          'deno_fmt',
+          'prettierd',
+          'prettier',
+          stop_after_first = true,
+        },
+        markdown = { 'prettierd', 'deno_fmt' },
         vue = { 'eslint_d', 'deno_fmt', stop_after_first = true },
         -- javascript = { 'eslint_d', 'deno', stop_after_first = true, async = true },
         javascriptreact = { 'eslint_d', 'deno_fmt', stop_after_first = true, async = true },

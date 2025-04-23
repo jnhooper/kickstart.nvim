@@ -289,4 +289,6 @@ return {
   },
   require 'custom.plugins.configs.text-case',
   require 'custom.plugins.configs.oil',
+  require 'custom.plugins.configs.render-markdown',
+  require 'custom.plugins.configs.autolist',
 }
