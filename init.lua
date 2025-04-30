@@ -975,6 +975,8 @@ require('lazy').setup({
 
           -- Make `|` select both edges in non-balanced way
           ['|'] = gen_spec.pair('|', '|', { type = 'non-balanced' }),
+          l = gen_spec.treesitter { a = '@loop.outer', i = '@loop.inner' },
+          c = gen_spec.treesitter { a = '@conditional.outer', i = '@conditional.inner' },
         },
       }
 
@@ -1034,7 +1036,26 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'astro',
+        'bash',
+        'c',
+        'css',
+        'diff',
+        'html',
+        'javascript',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'ruby',
+        'typescript',
+        'tsx',
+        'vim',
+        'vimdoc',
+        'vue',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -1050,6 +1071,15 @@ require('lazy').setup({
     -- with nvim-treesitter. You should go explore a few and see what interests you:
     --
     --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
+    -- incremental_selection = {
+    --   enable = true,
+    --   keymaps = {
+    --     init_selection = '<C-space>',
+    --     node_incremental = '<C-space>',
+    --     scope_incremental = false,
+    --     node_decremental = '<bs>',
+    --   },
+    -- },
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
