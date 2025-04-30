@@ -198,7 +198,7 @@ return {
     'nvim-web-devicons',
     override_by_extension = {
       ['tsx'] = {
-        icon = '󰜈',
+        icon = '󰜈 ',
         name = 'react',
       },
       ['jsx'] = {
