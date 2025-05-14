@@ -245,5 +245,4 @@ return {
   require 'custom.plugins.configs.autolist',
   require 'custom.plugins.configs.debugging',
   require 'custom.plugins.configs.smear',
-  require 'custom.plugins.configs.karen-yank',
 }
