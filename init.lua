@@ -482,8 +482,8 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
-      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      'williamboman/mason-lspconfig.nvim',
+      { 'mason-org/mason.nvim', opts = {} },
+      'mason-org/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
@@ -681,7 +681,8 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
       require('mason-lspconfig').setup {
-        automatic_installation = true,
+        automatic_enable = true,
+        automatic_installation = false,
         ensure_installed = {},
         handlers = {
           function(server_name)
@@ -700,7 +701,8 @@ require('lazy').setup({
       }
 
       local mason_registry = require 'mason-registry'
-      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+      -- local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() .. '/node_modules/@vue/language-server'
+      local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_installed_version() .. '/node_modules/@vue/language-server'
       nvim_lsp.ts_ls.setup {
         root_dir = nvim_lsp.util.root_pattern 'package.json',
         single_file_support = false,
