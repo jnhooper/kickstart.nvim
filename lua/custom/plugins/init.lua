@@ -12,10 +12,37 @@ return {
     ---@type snacks.Config
     opts = {
       scroll = {},
-      animate = {
-        -- your animate configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+      animate = {},
+      image = {
+        enabled = true,
+        doc = {
+          -- Personally I set this to false, I don't want to render all the
+          -- images in the file, only when I hover over them
+          -- render the image inline in the buffer
+          -- if your env doesn't support unicode placeholders, this will be disabled
+          -- takes precedence over `opts.float` on supported terminals
+          inline = vim.g.neovim_mode == 'skitty' and true or false,
+          -- only_render_image_at_cursor = vim.g.neovim_mode == "skitty" and false or true,
+          -- render the image in a floating window
+          -- only used if `opts.inline` is disabled
+          float = true,
+          -- Sets the size of the image
+          -- max_width = 60,
+          -- max_width = vim.g.neovim_mode == "skitty" and 20 or 60,
+          -- max_height = vim.g.neovim_mode == "skitty" and 10 or 30,
+          max_width = vim.g.neovim_mode == 'skitty' and 5 or 60,
+          max_height = vim.g.neovim_mode == 'skitty' and 2.5 or 30,
+          -- max_height = 30,
+          -- Apparently, all the images that you preview in neovim are converted
+          -- to .png and they're cached, original image remains the same, but
+          -- the preview you see is a png converted version of that image
+          --
+          -- Where are the cached images stored?
+          -- This path is found in the docs
+          -- :lua print(vim.fn.stdpath("cache") .. "/snacks/image")
+          -- For me returns `~/.cache/neobean/snacks/image`
+          -- Go 1 dir above and check `sudo du -sh ./* | sort -hr | head -n 5`
+        },
       },
       notifier = {
         history = true,
@@ -49,11 +76,17 @@ return {
     },
   },
   {
-    'ggandor/leap.nvim',
+    'isak102/ghostty.nvim',
     config = function()
-      require('leap').set_default_keymaps()
+      require('ghostty').setup()
     end,
   },
+  -- {
+  --   'ggandor/leap.nvim',
+  --   config = function()
+  --     require('leap').set_default_keymaps()
+  --   end,
+  -- },
   {
     'ThePrimeagen/harpoon',
     branch = 'harpoon2',
@@ -211,26 +244,26 @@ return {
       },
     },
   },
-  {
-    'nvim-tree/nvim-tree.lua',
-    version = '*',
-    lazy = false,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require('nvim-tree').setup {
-        update_focused_file = {
-          enable = true,
-          update_root = true,
-        },
-      }
-    end,
-    keys = {
-      { '<leader>e', '::NvimTreeFocus <CR>', desc = 'nvimTree focus', silent = true },
-      { '<C-n>', ':NvimTreeToggle <CR>', desc = 'nvimTree collapse', silent = true },
-    },
-  },
+  -- {
+  --   'nvim-tree/nvim-tree.lua',
+  --   version = '*',
+  --   lazy = false,
+  --   dependencies = {
+  --     'nvim-tree/nvim-web-devicons',
+  --   },
+  --   config = function()
+  --     require('nvim-tree').setup {
+  --       update_focused_file = {
+  --         enable = true,
+  --         update_root = true,
+  --       },
+  --     }
+  --   end,
+  --   keys = {
+  --     { '<leader>e', '::NvimTreeFocus <CR>', desc = 'nvimTree focus', silent = true },
+  --     { '<C-n>', ':NvimTreeToggle <CR>', desc = 'nvimTree collapse', silent = true },
+  --   },
+  -- },
 
   -- assumes ollama is setup
   {
@@ -245,4 +278,12 @@ return {
   require 'custom.plugins.configs.autolist',
   require 'custom.plugins.configs.debugging',
   require 'custom.plugins.configs.smear',
+  require 'custom.plugins.configs.avante',
+  require 'custom.plugins.configs.outline',
+  -- require 'custom.plugins.configs.mini-indent',
+  require 'custom.plugins.configs.flash',
+  require 'custom.plugins.configs.grug-far',
+  require 'custom.plugins.configs.mini-files',
+  require 'custom.plugins.configs.trouble',
+  require 'custom.plugins.configs.neotest',
 }
