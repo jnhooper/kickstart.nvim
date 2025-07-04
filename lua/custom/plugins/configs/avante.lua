@@ -6,8 +6,14 @@ return {
     -- add any opts here
     -- for example
     provider = 'ollama',
-    ollama = {
-      model = 'qwen2.5-coder',
+    -- ollama = {
+    --   model = 'qwen2.5-coder',
+    -- },
+    providers = {
+      ollama = {
+        endpoint = 'http://localhost:11434',
+        model = 'qwen2.5-coder',
+      },
     },
 
     behaviour = {

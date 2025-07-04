@@ -13,6 +13,7 @@ return {
     opts = {
       scroll = {},
       animate = {},
+      terminal = {},
       image = {
         enabled = true,
         doc = {
@@ -72,6 +73,13 @@ return {
           Snacks.lazygit()
         end,
         desc = 'Lazygit',
+      },
+      {
+        '<leader>qt',
+        function()
+          Snacks.terminal.toggle()
+        end,
+        desc = '[Q]uick [T]erminal',
       },
     },
   },
